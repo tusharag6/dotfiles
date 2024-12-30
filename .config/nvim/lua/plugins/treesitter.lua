@@ -1,11 +1,39 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
+    dependencies = {
+      "windwp/nvim-ts-autotag",
+    },
     config = function()
       require 'nvim-treesitter.configs'.setup {
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+        ensure_installed = {
+          "json",
+          "javascript",
+          "typescript",
+          "tsx",
+          "yaml",
+          "html",
+          "css",
+          "prisma",
+          "markdown",
+          "markdown_inline",
+          "svelte",
+          "graphql",
+          "bash",
+          "lua",
+          "vim",
+          "dockerfile",
+          "gitignore",
+          "query",
+          "vimdoc",
+          "c",
+        },
         auto_install = true,
+        autotage = {
+          enable = true
+        },
         highlight = {
           enable = true,
           disable = function(lang, buf)
