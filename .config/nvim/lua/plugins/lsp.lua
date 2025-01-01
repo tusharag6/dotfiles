@@ -37,6 +37,7 @@ return {
           "emmet_ls",
           "prismals",
           "pyright",
+          "clangd",
         },
       })
 
@@ -53,7 +54,7 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      'saghen/blink.cmp',
+      "saghen/blink.cmp",
       { "antosha417/nvim-lsp-file-operations", config = true },
       {
         "folke/lazydev.nvim",
@@ -70,12 +71,14 @@ return {
       local mason_lspconfig = require("mason-lspconfig")
 
       -- used to enable autocompletion (assign to every lsp server config)
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if not client then return end
+          if not client then
+            return
+          end
 
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = args.buf,
@@ -139,6 +142,14 @@ return {
         function(server_name)
           lspconfig[server_name].setup({
             capabilities = capabilities,
+          })
+        end,
+        ["clangd"] = function()
+          lspconfig.clangd.setup({
+            capabilities = capabilities,
+            cmd = { "clangd", "--background-index" }, -- Adjust command as needed
+            root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git")
+                or lspconfig.util.path.dirname,
           })
         end,
         ["svelte"] = function()
