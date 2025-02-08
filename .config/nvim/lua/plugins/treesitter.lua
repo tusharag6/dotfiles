@@ -7,7 +7,7 @@ return {
       "windwp/nvim-ts-autotag",
     },
     config = function()
-      require 'nvim-treesitter.configs'.setup {
+      require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "json",
           "javascript",
@@ -29,10 +29,11 @@ return {
           "query",
           "vimdoc",
           "c",
+          "java",
         },
         auto_install = true,
         autotage = {
-          enable = true
+          enable = true,
         },
         highlight = {
           enable = true,
@@ -45,7 +46,7 @@ return {
           end,
           additional_vim_regex_highlighting = false,
         },
-      }
+      })
     end,
-  }
+  },
 }

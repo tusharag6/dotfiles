@@ -149,7 +149,7 @@ return {
             capabilities = capabilities,
             cmd = { "clangd", "--background-index" }, -- Adjust command as needed
             root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git")
-                or lspconfig.util.path.dirname,
+              or lspconfig.util.path.dirname,
           })
         end,
         ["svelte"] = function()
